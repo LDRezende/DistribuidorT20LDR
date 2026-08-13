@@ -102,9 +102,90 @@ function formatarNumero(valor) {
 
 
 /* ========================================
+   CUSTO DA DISTRIBUIÇÃO
+
+   -1 = devolve 1 ponto
+    0 = custa 0
+   +1 = custa 1
+   +2 = custa 2
+   +3 = custa 4
+   +4 = custa 7
+======================================== */
+
+function calcularCustoAtributo(valor) {
+
+  if (valor === -1) {
+    return -1;
+  }
+
+  if (valor === 0) {
+    return 0;
+  }
+
+  if (valor === 1) {
+    return 1;
+  }
+
+  if (valor === 2) {
+    return 2;
+  }
+
+  if (valor === 3) {
+    return 4;
+  }
+
+  if (valor === 4) {
+    return 7;
+  }
+
+
+  /*
+    MODO NÃO CONVENCIONAL
+
+    Para valores acima de 4:
+    cada ponto adicional continua
+    aumentando o custo progressivamente.
+
+    Exemplo:
+    +4 = 7
+    +5 = 11
+    +6 = 16
+    +7 = 22
+
+    Para valores abaixo de -1:
+    cada ponto negativo devolve 1.
+  */
+
+  if (valor < -1) {
+    return valor;
+  }
+
+
+  if (valor > 4) {
+
+    let custo = 7;
+
+    let custoDoProximoPonto = 4;
+
+    for (let atual = 5; atual <= valor; atual++) {
+
+      custo += custoDoProximoPonto;
+
+      custoDoProximoPonto++;
+
+    }
+
+    return custo;
+  }
+
+
+  return 0;
+}
+
+
+/* ========================================
    CRIAR TABELA DO DISTRIBUIDOR
 
-   ORDEM:
    Atributo | Pontos | Racial | Outros | Total
 ======================================== */
 
@@ -397,30 +478,20 @@ function calcularPontosDisponiveis() {
   const pontosBase =
     obterNumero(pontosBaseInput.value);
 
-  let pontosDistribuidos = 0;
+  let custoTotal = 0;
 
 
   estado.forEach(function (atributo) {
 
-    pontosDistribuidos +=
-      atributo.pontos;
+    custoTotal +=
+      calcularCustoAtributo(
+        atributo.pontos
+      );
 
   });
 
 
-  /*
-    Exemplo:
-
-    Base = 10
-    Força = -1
-
-    10 - (-1) = 11
-
-    Portanto valores negativos
-    devolvem pontos.
-  */
-
-  return pontosBase - pontosDistribuidos;
+  return pontosBase - custoTotal;
 }
 
 
@@ -667,7 +738,6 @@ botaoGerar.addEventListener(
 /* ========================================
    DESENHAR IMAGEM
 
-   ORDEM DA IMAGEM:
    Atributo | Total | Pontos | Racial | Outros
 ======================================== */
 
@@ -746,11 +816,7 @@ function desenharImagem() {
   }
 
 
-  /* ========================================
-     POSIÇÃO DAS COLUNAS DA IMAGEM
-
-     ATRIBUTO | TOTAL | PTS | RACIAL | OUTROS
-  ======================================== */
+  /* POSIÇÃO DAS COLUNAS */
 
   const coluna = {
 
@@ -851,7 +917,7 @@ function desenharImagem() {
       ctx.stroke();
 
 
-      /* NOME DO ATRIBUTO */
+      /* NOME */
 
       ctx.fillStyle =
         "#ffffff";
@@ -867,9 +933,7 @@ function desenharImagem() {
       );
 
 
-      /* TOTAL
-         Fica em destaque
-      */
+      /* TOTAL */
 
       ctx.font =
         "bold 19px Arial";
@@ -1028,7 +1092,7 @@ botaoReiniciar.addEventListener(
       });
 
 
-    /* FECHA A PRÉVIA */
+    /* FECHA PRÉVIA */
 
     previewArea
       .classList
