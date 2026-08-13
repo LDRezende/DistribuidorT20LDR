@@ -139,22 +139,7 @@ function calcularCustoAtributo(valor) {
   }
 
 
-  /*
-    MODO NÃO CONVENCIONAL
-
-    Para valores acima de 4:
-    cada ponto adicional continua
-    aumentando o custo progressivamente.
-
-    Exemplo:
-    +4 = 7
-    +5 = 11
-    +6 = 16
-    +7 = 22
-
-    Para valores abaixo de -1:
-    cada ponto negativo devolve 1.
-  */
+  /* MODO NÃO CONVENCIONAL */
 
   if (valor < -1) {
     return valor;
@@ -172,7 +157,6 @@ function calcularCustoAtributo(valor) {
       custo += custoDoProximoPonto;
 
       custoDoProximoPonto++;
-
     }
 
     return custo;
@@ -267,7 +251,6 @@ function sincronizarValoresDaTabela() {
 
       estado[index].pontos =
         obterNumero(input.value);
-
     });
 
 
@@ -280,7 +263,6 @@ function sincronizarValoresDaTabela() {
 
       estado[index].racial =
         obterNumero(input.value);
-
     });
 
 
@@ -293,7 +275,6 @@ function sincronizarValoresDaTabela() {
 
       estado[index].outros =
         obterNumero(input.value);
-
     });
 }
 
@@ -330,7 +311,6 @@ function configurarEventosDosInputs() {
             if (valor < -1) {
               valor = -1;
             }
-
           }
 
 
@@ -362,7 +342,6 @@ function configurarEventosDosInputs() {
             if (valor < -1) {
               valor = -1;
             }
-
           }
 
 
@@ -375,7 +354,6 @@ function configurarEventosDosInputs() {
           atualizarAplicativo();
         }
       );
-
     });
 
 
@@ -419,7 +397,6 @@ function configurarEventosDosInputs() {
           atualizarAplicativo();
         }
       );
-
     });
 
 
@@ -463,9 +440,7 @@ function configurarEventosDosInputs() {
           atualizarAplicativo();
         }
       );
-
     });
-
 }
 
 
@@ -487,7 +462,6 @@ function calcularPontosDisponiveis() {
       calcularCustoAtributo(
         atributo.pontos
       );
-
   });
 
 
@@ -515,7 +489,6 @@ function atualizarAplicativo() {
       "total-" + index
     ).textContent =
       formatarNumero(total);
-
   });
 
 
@@ -529,62 +502,48 @@ function atualizarAplicativo() {
     disponiveis;
 
 
-  /* DISTRIBUIÇÃO COMPLETA */
-
   if (disponiveis === 0) {
 
     pontosDisponiveisElemento.style.color =
       "#7ee787";
 
-
     mensagemPontos.textContent =
       "Distribuição completa. Você pode gerar a imagem.";
-
 
     botaoGerar.disabled =
       false;
   }
 
 
-  /* AINDA SOBRAM PONTOS */
-
   else if (disponiveis > 0) {
 
     pontosDisponiveisElemento.style.color =
       "#ff6b6b";
-
 
     mensagemPontos.textContent =
       "Ainda restam " +
       disponiveis +
       " ponto(s) para distribuir.";
 
-
     botaoGerar.disabled =
       true;
   }
 
-
-  /* ULTRAPASSOU */
 
   else {
 
     pontosDisponiveisElemento.style.color =
       "#ff6b6b";
 
-
     mensagemPontos.textContent =
       "Você ultrapassou o limite em " +
       Math.abs(disponiveis) +
       " ponto(s).";
 
-
     botaoGerar.disabled =
       true;
   }
 
-
-  /* ATUALIZA PRÉVIA AUTOMATICAMENTE */
 
   if (
     !previewArea.classList.contains("escondido") &&
@@ -592,7 +551,6 @@ function atualizarAplicativo() {
   ) {
 
     desenharImagem();
-
   }
 }
 
@@ -640,8 +598,6 @@ ignorarRestricoes.addEventListener(
       );
 
 
-    /* ATIVAR */
-
     if (this.checked) {
 
       avisoNaoConvencional
@@ -653,12 +609,9 @@ ignorarRestricoes.addEventListener(
 
         input.removeAttribute("min");
         input.removeAttribute("max");
-
       });
     }
 
-
-    /* DESATIVAR */
 
     else {
 
@@ -738,6 +691,11 @@ botaoGerar.addEventListener(
 /* ========================================
    DESENHAR IMAGEM
 
+   CABEÇALHO:
+   Distribuição de Pontos T20
+   Pontos distribuídos: X
+
+   TABELA:
    Atributo | Total | Pontos | Racial | Outros
 ======================================== */
 
@@ -750,14 +708,23 @@ function desenharImagem() {
     ignorarRestricoes.checked;
 
 
+  const pontosDistribuidos =
+    obterNumero(pontosBaseInput.value);
+
+
   canvas.width =
     620;
 
 
+  /*
+    Aumentamos um pouco a altura porque
+    agora existe a linha "Pontos distribuídos".
+  */
+
   canvas.height =
     naoConvencional
-      ? 420
-      : 380;
+      ? 450
+      : 410;
 
 
   /* FUNDO */
@@ -773,7 +740,9 @@ function desenharImagem() {
   );
 
 
-  /* TÍTULO */
+  /* ========================================
+     TÍTULO
+  ======================================== */
 
   ctx.fillStyle =
     "#ffffff";
@@ -789,11 +758,31 @@ function desenharImagem() {
   );
 
 
+  /* ========================================
+     PONTOS DISTRIBUÍDOS
+  ======================================== */
+
+  ctx.fillStyle =
+    "#aeb5c2";
+
+  ctx.font =
+    "bold 15px Arial";
+
+
+  ctx.fillText(
+    "Pontos distribuídos: " + pontosDistribuidos,
+    22,
+    68
+  );
+
+
   let cabecalhoY =
-    80;
+    105;
 
 
-  /* AVISO NÃO CONVENCIONAL */
+  /* ========================================
+     AVISO NÃO CONVENCIONAL
+  ======================================== */
 
   if (naoConvencional) {
 
@@ -807,16 +796,20 @@ function desenharImagem() {
     ctx.fillText(
       "Distribuição de pontos não convencional",
       22,
-      76
+      98
     );
 
 
     cabecalhoY =
-      115;
+      135;
   }
 
 
-  /* POSIÇÃO DAS COLUNAS */
+  /* ========================================
+     POSIÇÃO DAS COLUNAS
+
+     ATRIBUTO | TOTAL | PTS | RACIAL | OUTROS
+  ======================================== */
 
   const coluna = {
 
@@ -832,7 +825,9 @@ function desenharImagem() {
   };
 
 
-  /* CABEÇALHO */
+  /* ========================================
+     CABEÇALHO DA TABELA
+  ======================================== */
 
   ctx.fillStyle =
     "#aeb5c2";
@@ -880,7 +875,9 @@ function desenharImagem() {
     cabecalhoY + 38;
 
 
-  /* ATRIBUTOS */
+  /* ========================================
+     ATRIBUTOS
+  ======================================== */
 
   estado.forEach(
     function (atributo) {
@@ -1027,13 +1024,9 @@ botaoReiniciar.addEventListener(
   "click",
   function () {
 
-    /* VOLTA PARA 10 PONTOS */
-
     pontosBaseInput.value =
       10;
 
-
-    /* DESATIVA MODO NÃO CONVENCIONAL */
 
     ignorarRestricoes.checked =
       false;
@@ -1043,8 +1036,6 @@ botaoReiniciar.addEventListener(
       .classList
       .add("escondido");
 
-
-    /* ZERA ESTADO */
 
     estado.forEach(
       function (atributo) {
@@ -1058,8 +1049,6 @@ botaoReiniciar.addEventListener(
     );
 
 
-    /* ZERA PONTOS */
-
     document
       .querySelectorAll(".input-pontos")
       .forEach(function (input) {
@@ -1072,8 +1061,6 @@ botaoReiniciar.addEventListener(
       });
 
 
-    /* ZERA RACIAL */
-
     document
       .querySelectorAll(".input-racial")
       .forEach(function (input) {
@@ -1081,8 +1068,6 @@ botaoReiniciar.addEventListener(
         input.value = 0;
       });
 
-
-    /* ZERA OUTROS */
 
     document
       .querySelectorAll(".input-outros")
@@ -1092,14 +1077,10 @@ botaoReiniciar.addEventListener(
       });
 
 
-    /* FECHA PRÉVIA */
-
     previewArea
       .classList
       .add("escondido");
 
-
-    /* LIMPA CANVAS */
 
     ctx.clearRect(
       0,
@@ -1108,8 +1089,6 @@ botaoReiniciar.addEventListener(
       canvas.height
     );
 
-
-    /* RECALCULA */
 
     sincronizarValoresDaTabela();
 
