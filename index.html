@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+  <meta charset="UTF-8">
+
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0"
+  >
+
+  <title>Distribuição de Pontos T20</title>
+
+  <!-- Conecta o CSS -->
+  <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+  <div class="app">
+
+    <!-- CABEÇALHO -->
+    <header class="cabecalho">
+
+      <div class="titulo">
+        <h1>Distribuição de Pontos T20</h1>
+        <p>Distribuidor de atributos para Tormenta 20</p>
+      </div>
+
+      <div class="controle-pontos">
+
+        <div class="campo-base">
+          <label for="pontosBase">
+            Pontos para distribuir
+          </label>
+
+          <input
+            id="pontosBase"
+            type="number"
+            value="10"
+            step="1"
+          >
+        </div>
+
+        <div class="campo-disponiveis">
+          <span>Pontos disponíveis</span>
+
+          <strong id="pontosDisponiveis">
+            10
+          </strong>
+        </div>
+
+      </div>
+
+    </header>
+
+
+    <main>
+
+      <!-- TABELA -->
+      <div class="tabela-container">
+
+        <table>
+
+          <thead>
+            <tr>
+              <th>Atributo</th>
+              <th>Pontos</th>
+              <th>Racial</th>
+              <th>Outros</th>
+              <th>Total</th>
+            </tr>
+          </thead>
+
+          <tbody id="tabelaAtributos">
+            <!-- Criado pelo JavaScript -->
+          </tbody>
+
+        </table>
+
+      </div>
+
+
+      <!-- CONTROLES -->
+      <section class="controles">
+
+        <label class="opcao-restricoes">
+
+          <input
+            id="ignorarRestricoes"
+            type="checkbox"
+          >
+
+          <span>
+            Ignorar restrições padrão (-1 a +4)
+          </span>
+
+        </label>
+
+
+        <div
+          id="avisoNaoConvencional"
+          class="aviso escondido"
+        >
+          Distribuição de pontos não convencional
+        </div>
+
+
+        <p id="mensagemPontos">
+          Ainda restam 10 pontos para distribuir.
+        </p>
+
+
+        <button
+          id="gerarImagem"
+          type="button"
+          disabled
+        >
+          Gerar imagem
+        </button>
+        <button
+  id="reiniciarTudo"
+  type="button"
+  class="botao-reiniciar"
+>
+  Reiniciar
+</button>
+
+      </section>
+
+
+      <!-- PRÉVIA -->
+      <section
+        id="previewArea"
+        class="preview escondido"
+      >
+
+        <h2>Prévia da imagem</h2>
+
+        <canvas id="canvasImagem"></canvas>
+
+        <button
+          id="baixarImagem"
+          type="button"
+        >
+          Baixar PNG
+        </button>
+
+      </section>
+
+    </main>
+
+  </div>
+
+
+  <!-- Conecta o JavaScript -->
+  <script src="script.js"></script>
+
+</body>
+
+</html>

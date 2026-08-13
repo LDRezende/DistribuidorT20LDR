@@ -1,0 +1,451 @@
+/* ==============================
+   CONFIGURAÇÕES GERAIS
+================================ */
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  padding: 30px 15px;
+
+  min-height: 100vh;
+
+  background: #101218;
+  color: #f4f4f5;
+
+  font-family:
+    Arial,
+    Helvetica,
+    sans-serif;
+}
+
+
+/* ==============================
+   APLICATIVO
+================================ */
+
+.app {
+  width: 100%;
+  max-width: 900px;
+
+  margin: 0 auto;
+
+  background: #1b1e26;
+
+  border: 1px solid #343945;
+  border-radius: 16px;
+
+  overflow: hidden;
+
+  box-shadow:
+    0 20px 50px
+    rgba(0, 0, 0, 0.35);
+}
+
+
+/* ==============================
+   CABEÇALHO
+================================ */
+
+.cabecalho {
+  display: flex;
+
+  justify-content: space-between;
+  align-items: center;
+
+  gap: 30px;
+
+  padding: 25px;
+
+  background: #242833;
+
+  border-bottom:
+    1px solid #343945;
+}
+
+
+.titulo h1 {
+  margin: 0 0 7px;
+
+  font-size: 27px;
+}
+
+
+.titulo p {
+  margin: 0;
+
+  color: #aeb5c2;
+
+  font-size: 14px;
+}
+
+
+/* ==============================
+   PONTOS
+================================ */
+
+.controle-pontos {
+  display: flex;
+
+  align-items: center;
+
+  gap: 25px;
+}
+
+
+.campo-base label,
+.campo-disponiveis span {
+  display: block;
+
+  margin-bottom: 7px;
+
+  color: #aeb5c2;
+
+  font-size: 11px;
+
+  font-weight: bold;
+
+  text-transform: uppercase;
+
+  letter-spacing: 0.5px;
+}
+
+
+#pontosBase {
+  width: 85px;
+}
+
+
+.campo-disponiveis {
+  text-align: center;
+}
+
+
+#pontosDisponiveis {
+  display: block;
+
+  font-size: 30px;
+
+  color: #ff6b6b;
+}
+
+
+/* ==============================
+   CONTEÚDO
+================================ */
+
+main {
+  padding: 25px;
+}
+
+
+/* ==============================
+   TABELA
+================================ */
+
+.tabela-container {
+  width: 100%;
+
+  overflow-x: auto;
+}
+
+
+table {
+  width: 100%;
+
+  border-collapse: collapse;
+}
+
+
+th {
+  padding: 12px 8px;
+
+  border-bottom:
+    2px solid #414755;
+
+  color: #aeb5c2;
+
+  font-size: 12px;
+
+  text-transform: uppercase;
+
+  text-align: center;
+}
+
+
+td {
+  padding: 11px 8px;
+
+  border-bottom:
+    1px solid #303541;
+
+  text-align: center;
+}
+
+
+th:first-child,
+td:first-child {
+  text-align: left;
+}
+
+
+.nome-atributo {
+  min-width: 140px;
+
+  font-weight: bold;
+
+  font-size: 16px;
+}
+
+
+/* ==============================
+   INPUTS
+================================ */
+
+input[type="number"] {
+  width: 75px;
+
+  padding: 9px 6px;
+
+  background: #12151b;
+
+  color: #ffffff;
+
+  border:
+    1px solid #454c5b;
+
+  border-radius: 7px;
+
+  text-align: center;
+
+  font-size: 16px;
+}
+
+
+input[type="number"]:focus {
+  outline:
+    2px solid #7582a0;
+
+  border-color: transparent;
+}
+
+
+.total {
+  font-size: 19px;
+
+  font-weight: bold;
+}
+
+
+/* ==============================
+   CONTROLES
+================================ */
+
+.controles {
+  margin-top: 25px;
+}
+
+
+.opcao-restricoes {
+  display: flex;
+
+  align-items: center;
+
+  gap: 9px;
+
+  width: fit-content;
+
+  cursor: pointer;
+}
+
+
+.opcao-restricoes input {
+  width: 18px;
+  height: 18px;
+}
+
+
+.aviso {
+  margin-top: 16px;
+
+  padding: 11px 13px;
+
+  background: #392d1e;
+
+  border:
+    1px solid #77592e;
+
+  border-radius: 7px;
+
+  color: #ffd394;
+
+  font-size: 14px;
+
+  font-weight: bold;
+}
+
+
+#mensagemPontos {
+  margin: 20px 0 12px;
+
+  color: #b5bbc6;
+
+  font-size: 14px;
+}
+
+
+/* ==============================
+   BOTÕES
+================================ */
+
+button {
+  padding: 11px 18px;
+
+  border: none;
+
+  border-radius: 8px;
+
+  background: #f2f2f2;
+
+  color: #151515;
+
+  font-size: 14px;
+
+  font-weight: bold;
+
+  cursor: pointer;
+
+  transition:
+    transform 0.15s ease,
+    opacity 0.15s ease;
+}
+
+
+button:hover:not(:disabled) {
+  transform:
+    translateY(-1px);
+}
+
+
+button:disabled {
+  opacity: 0.3;
+
+  cursor: not-allowed;
+}
+
+
+/* ==============================
+   PRÉVIA
+================================ */
+
+.preview {
+  margin-top: 30px;
+
+  padding-top: 25px;
+
+  border-top:
+    1px solid #343945;
+}
+
+
+.preview h2 {
+  margin-top: 0;
+
+  font-size: 19px;
+}
+
+
+#canvasImagem {
+  display: block;
+
+  width: 100%;
+  max-width: 620px;
+
+  height: auto;
+
+  margin: 15px 0;
+
+  border-radius: 8px;
+}
+
+
+/* ==============================
+   UTILIDADES
+================================ */
+
+.escondido {
+  display: none;
+}
+
+
+/* ==============================
+   CELULAR
+================================ */
+
+@media (max-width: 650px) {
+
+  body {
+    padding: 10px;
+  }
+
+
+  .app {
+    border-radius: 10px;
+  }
+
+
+  .cabecalho {
+    flex-direction: column;
+
+    align-items: stretch;
+
+    padding: 18px;
+  }
+
+
+  .titulo h1 {
+    font-size: 22px;
+  }
+
+
+  .controle-pontos {
+    justify-content:
+      space-between;
+  }
+
+
+  main {
+    padding: 14px;
+  }
+
+
+  table {
+    min-width: 500px;
+  }
+
+
+  th,
+  td {
+    padding: 9px 5px;
+  }
+
+
+  input[type="number"] {
+    width: 62px;
+  }
+
+}
+.botao-reiniciar {
+  margin-left: 8px;
+
+  background: transparent;
+  color: #ff7b72;
+
+  border: 1px solid #5e3434;
+}
+
+.botao-reiniciar:hover {
+  background: #3a2020;
+}
